@@ -23,9 +23,27 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    height: 90%;
+    height: 87%;
     width: auto;
     max-width: none;
+  }
+
+  ion-card-content {
+    font-size: 16px;
+    color: #a8a8a8;
+    padding: 10px 16px;
+
+    p {
+      font-size: inherit;
+      color: inherit;
+    }
+  }
+
+  ion-card-title {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    color: #000;
   }
 }
 

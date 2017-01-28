@@ -18,6 +18,15 @@
   &:first-child {
     top: 1%;
   }
+
+  img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 90%;
+    width: auto;
+    max-width: none;
+  }
 }
 
 .card__actions {

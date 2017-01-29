@@ -1,10 +1,10 @@
 <ion-content padding>
   <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutright)="voteUp(true)" (throwoutleft)="voteUp(false)" class="card-stack">
     <ion-card #mycards1 swing-card *ngFor="let c of cards" class="card">
-      <img *ngIf="c.picture"[src]="c.picture.large">
+      <img *ngIf="c.id" src="https://farm{{c.farm}}.staticflickr.com/{{c.server}}/{{c.id}}_{{c.secret}}_z.jpg">
       <div *ngIf="c.positive" class="card__tag card__tag--positive">Love</div>
       <div *ngIf="c.negative" class="card__tag card__tag--negative">Hate</div>
-      <ion-card-content *ngIf="c.picture">
+      <ion-card-content *ngIf="c.id">
         <ion-card-title>
           Title
         </ion-card-title>

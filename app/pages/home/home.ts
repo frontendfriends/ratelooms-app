@@ -47,7 +47,7 @@ export class HomePage {
     });
 
     this.cards = [{positive: false, negative: false}];
-    this.addNewCards(1);
+    this.addNewCards(1, Math.round(Math.random() * 66));
   }
 
 onItemMove(element, x, y, r) {
@@ -70,14 +70,24 @@ onItemMove(element, x, y, r) {
 // Connected through HTML
 voteUp(like: boolean) {
   let removedCard = this.cards.pop();
-  this.addNewCards(1);
+  this.addNewCards(1, Math.round(Math.random() * 66));
 }
 
-addNewCards(count: number) {
-  this.http.get('https://randomuser.me/api/?results=' + count)
-  .map(data => data.json().results)
+addNewCards(count: number, index:number) {
+  this.http.get(`https://api.flickr.com/services/rest/?
+      method=flickr.photos.search&
+      api_key=${this.key}&
+      license=2%2C3%2C4%2C5%2C6%2C7%2C8%2C9&
+      content_type=1&
+      group_id=1392981%40N23&
+      per_page=${count}&
+      page=${index}&
+      format=json&
+      nojsoncallback=1`
+    )
+  .map(data => data.json().photos)
   .subscribe(result => {
-    for (let val of result) {
+    for (let val of result.photo) {
       this.cards.push(val);
     }
   })

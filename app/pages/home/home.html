@@ -2,6 +2,8 @@
   <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutright)="voteUp(true)" (throwoutleft)="voteUp(false)" class="card-stack">
     <ion-card #mycards1 swing-card *ngFor="let c of cards" class="card">
       <img *ngIf="c.picture"[src]="c.picture.large">
+      <div *ngIf="c.positive" class="card__tag card__tag--positive">Love</div>
+      <div *ngIf="c.negative" class="card__tag card__tag--negative">Hate</div>
       <ion-card-content *ngIf="c.picture">
         <ion-card-title>
           Title

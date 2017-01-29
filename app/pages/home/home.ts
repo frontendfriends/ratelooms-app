@@ -40,14 +40,29 @@ export class HomePage {
   }
 
   ngAfterViewInit() {
+    // Either subscribe in controller or set in HTML
+    this.swingStack.throwin.subscribe((event: DragEvent) => {
+      this.cards[1].negative = false;
+      this.cards[1].positive = false;
+    });
 
-    this.cards = [{email: ''}];
+    this.cards = [{positive: false, negative: false}];
     this.addNewCards(1);
   }
 
 onItemMove(element, x, y, r) {
   var abs = Math.abs(x);
   let min = Math.trunc(Math.min(16*16 - abs, 16*16));
+
+  if (x < 0) {
+    this.cards[1].negative = true;
+    this.cards[1].positive = false;
+  }
+  else if (x > 0) {
+    this.cards[1].negative = false;
+    this.cards[1].positive = true;
+
+  }
 
   element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
 }

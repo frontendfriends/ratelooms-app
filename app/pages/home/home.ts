@@ -21,6 +21,7 @@ export class HomePage {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
+  key: string;
   cards: Array<any>;
   stackConfig: StackConfig;
   recentCard: string = '';
@@ -48,7 +49,16 @@ export class HomePage {
     });
 
     this.cards = [{positive: false, negative: false}];
-    this.addNewCards(1, Math.round(Math.random() * this.pages));
+
+    this.http.get('build/data/config.json')
+      .map(data => data.json())
+      .subscribe(result => {
+        this.key = result[0].FLICKR_API_KEY
+
+        if (this.key) {
+          this.addNewCards(1, Math.round(Math.random() * this.pages));
+        }
+      });
   }
 
 onItemMove(element, x, y, r) {

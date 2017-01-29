@@ -24,6 +24,7 @@ export class HomePage {
   cards: Array<any>;
   stackConfig: StackConfig;
   recentCard: string = '';
+  pages: number = 1;
 
   constructor(private http: Http) {
     this.stackConfig = {
@@ -47,7 +48,7 @@ export class HomePage {
     });
 
     this.cards = [{positive: false, negative: false}];
-    this.addNewCards(1, Math.round(Math.random() * 66));
+    this.addNewCards(1, Math.round(Math.random() * this.pages));
   }
 
 onItemMove(element, x, y, r) {
@@ -70,7 +71,7 @@ onItemMove(element, x, y, r) {
 // Connected through HTML
 voteUp(like: boolean) {
   let removedCard = this.cards.pop();
-  this.addNewCards(1, Math.round(Math.random() * 66));
+  this.addNewCards(1, Math.round(Math.random() * this.pages));
 }
 
 addNewCards(count: number, index:number) {
@@ -90,6 +91,7 @@ addNewCards(count: number, index:number) {
     for (let val of result.photo) {
       this.cards.push(val);
     }
+    this.pages = result.pages;
   })
 }
 }

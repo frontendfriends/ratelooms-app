@@ -78,7 +78,7 @@ addNewCards(count: number, index:number) {
   this.http.get(`https://api.flickr.com/services/rest/?
       method=flickr.photos.search&
       api_key=${this.key}&
-      license=2%2C3%2C4%2C5%2C6%2C7%2C8%2C9&
+      license=2%2C3%2C4%2C5%2C6%2C8%2C9&
       content_type=1&
       group_id=1392981%40N23&
       per_page=${count}&
@@ -87,11 +87,29 @@ addNewCards(count: number, index:number) {
       nojsoncallback=1`
     )
   .map(data => data.json().photos)
-  .subscribe(result => {
-    for (let val of result.photo) {
-      this.cards.push(val);
+  .subscribe(photoData => {
+    for (let val of photoData.photo) {
+
+      this.http.get(`https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&
+      api_key=${this.key}&
+      photo_id=${val.id}&
+      format=json&
+      nojsoncallback=1
+      `
+      )
+      .map(data => data.json().photo)
+      .subscribe(userData => {
+        if (userData.owner.realname) {
+          val.owner = userData.owner.realname;
+        }
+        else if (userData.owner.username){
+          val.owner = userData.owner.username;
+        }
+
+        this.cards.push(val);
+      });
     }
-    this.pages = result.pages;
+    this.pages = photoData.pages;
   })
 }
 }

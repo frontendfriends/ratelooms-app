@@ -23,15 +23,19 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    height: 87%;
+    height: 85%;
     width: auto;
     max-width: none;
   }
 
   ion-card-content {
-    font-size: 16px;
+    display: flex;
+    height: 15%;
+    font-size: 15px;
     color: #a8a8a8;
     padding: 10px 16px;
+    flex-direction: column;
+    justify-content: space-between;
 
     p {
       font-size: inherit;
